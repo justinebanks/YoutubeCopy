@@ -941,6 +941,27 @@ function stringContains(searchTerm, string) {
 			return true;
 		};
 	};
+
+	for (let word of searchTerm.split(" ")) {
+
+		for (let item of list1) {
+			if (word == item) {
+				return true;
+			};
+		};
+
+		for (let item of list2) {
+			if (word == item) {
+				return true;
+			};
+		};
+
+		for (let item of list3) {
+			if (word == item) {
+				return true;
+			};
+		};
+	}
 };
 
 
