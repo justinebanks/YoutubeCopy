@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+
+		<title>YouTube</title>
+		<link rel="stylesheet" href="style.css"></link>
+		<link rel="icon" href="https://cdn.pixabay.com/photo/2020/11/01/04/17/youtube-5702828_1280.png"></link>
+		
+	</head>
+
+	<body>
+
+		<nav class="top-navbar">
+			<div class="nav-left nav-sec">
+				<button class="nav-item hamburger-menu"><img src=""></button>
+				<img class="nav-item yt-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLTmVoX1TaF_hvBlmXATIQV9KM1b_bh6h9RvlPZ7S7a-oe_j1i6yh3vEOXpG8rYNBAGbE&usqp=CAU">
+			</div>
+
+			<div class="nav-center nav-sec">
+				<input class="nav-item search-input" placeholder="Search">
+			</div>
+
+			<div class="nav-right nav-sec">
+				
+			</div>
+		</nav>
+
+
+		<div class="comb">
+			<nav class="left-navbar">
+				<button class="nav-item home-btn first"><a href="#" onclick="showHome()">Home</a></button>
+				<button class="nav-item history-btn"><a href="#" onclick="showHistory()">History</a></button>
+				<button class="nav-item liked-btn"><a href="#" onclick="showLiked()">Liked</a></button>
+				<button class="nav-item playlists-btn" onclick="showPlaylistList('Open Playlist', null)"><a href="#">Playlists</a></button>
+			</nav>
+
+			<section class="home-page page"></section>
+			<section class="history-page page"></section>
+			<section class="player-page page"></section>
+			<section class="liked-page page"></section>
+			<section class="playlist-page page"></section>
+		</div>
+
+
+		<script src="script.js"></script>
+
+	</body>
+
+</html>

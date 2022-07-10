@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans&family=Roboto&display=swap');
+
+:root {
+	--yt-nav: #242424;
+	--yt-input: #101010;
+	--yt-body: #181818;
+	--yt-light: #555555;
+	--yt-red: rgb(179, 23, 18);
+}
+
+* {
+	font-family: Roboto;
+}
+
+body {
+	background-color: var(--yt-body);
+	margin: 0px;
+}
+
+.comb {
+	display: flex;
+}
+
+/*
+---------------------
+Top Nav Bar
+---------------------
+*/
+
+.top-navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 1368px;
+	height: 70px;
+	border: 0px solid black;
+	background-color: var(--yt-nav);
+	position: fixed;
+	z-index: 101;
+}
+
+.nav-sec {
+	display: flex;
+	align-items: center;
+}
+
+input.nav-item {
+	background-color: var(--yt-input);
+	border: 1px solid var(--yt-light);
+	font-size: 15px;
+	width: 500px;
+	height: 30px;
+	color: white;
+}
+
+.top-navbar .hamburger-menu {
+	background-color: var(--yt-nav);
+	margin-left: 20px;
+	width: 45px;
+	height: 45px;
+	border-radius: 45px;
+	border: 1.5px solid var(--yt-light);
+}
+
+.top-navbar .hamburger-menu:hover {
+	background-color: var(--yt-light);
+}
+
+.yt-logo {
+	width: 90px;
+	height: 40px;
+	margin-left: 20px;
+}
+
+
+/*
+---------------------
+Left Nav Bar
+---------------------
+*/
+
+.left-navbar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--yt-nav);
+	width: 85px;
+	height: 769px;
+	position: fixed;
+	top: 50px;
+	z-index: 100;
+}
+
+.left-navbar button.first {
+	margin-top: 30px;
+}
+
+.left-navbar button {
+	background-color: var(--yt-nav);
+	border: 0px;
+	width: 85px;
+	height: 80px;
+}
+
+.left-navbar button a {
+	background-color: rgba(0, 0, 0, 0);
+	border: 0px;
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+
+.left-navbar a {
+	text-decoration: none;
+	text-align: center;
+	font-size: 10px;
+	color: white;
+}
+
+
+.left-navbar button a:hover {
+	background-color: var(--yt-light);
+}
+
+
+.left-navbar button:hover {
+	background-color: var(--yt-light);
+}
+
+
+
+.home-page {
+	display: grid;
+	height: 100%;
+	padding: 15px;
+    grid-template-columns: repeat(4, 300px);
+    grid-template-rows: repeat(10, 150px);
+    grid-row-gap: 150px;
+    grid-column-gap: 12px;
+}
+
+
+section.page {
+	margin-top: 70px;
+	margin-left: 85px;
+}
