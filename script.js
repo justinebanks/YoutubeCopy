@@ -1,3 +1,7 @@
+import { videoList as homePageVideos } from "./jsonVideoLists/videos.js";
+// import { likedVideos } from "./jsonVideoLists/likeVideos.js";
+// import { historyPageVideos } from "./jsonVideoLists/historyPageVideos.js";
+// import { playlists } from "./jsonVideoLists/playlists.js";
 
 let searchInput = document.querySelector(".search-input");
 let ytLink;
@@ -13,390 +17,17 @@ let historyButton = document.querySelector(".history-btn");
 let likePageButton = document.querySelector(".liked-btn")
 let playlistsButton = document.querySelector(".playlists-btn")
 
-
-let likedVideos = [];
 let historyPageVideos = [];
+let likedVideos = [];
 
 let playlists = [
 	{
 		name: "Watch Later",
-		videos: [],
-	},
+		videos: []
+	}
 ];
 
-let homePageVideos = [
-	{
-		id: 1,
-		name: "Fullstack Web Development",
-		creator: "Academind",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/pkdgVYehiTE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB94ZomtAk8QMtMbrgWvwdx574MHA",
-		description: "D",
-		videoCode: "pkdgVYehiTE",
-		likes: 0,
-	},
-	{
-		id: 2,
-		name: "Procedural Animation",
-		creator: "t3ssel8r",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/KPoeNZZ6H4s/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDTm6LQajkoE5jvp9V-tr6ddxNyHw",
-		description: "D",
-		videoCode: "KPoeNZZ6H4s",
-		likes: 0,
-	},
-	{
-		id: 3,
-		name: "My Hero Academia | Official Trailer",
-		creator: "AnimeHype",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/vwlulN6OPyw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB-FXF5ZnbjKL5gtMdxMDOMvu7ZHw",
-		description: "D",
-		videoCode: "vwlulN6OPyw",
-		likes: 0,
-	},
-	{
-		id: 4,
-		name: "Big O Notation",
-		creator: "Reducible",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/Q_1M2JaijjQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBJxIihI3woDWmojdTKnfL9lE9AXQ",
-		description: "D",
-		videoCode: "Q_1M2JaijjQ",
-		likes: 0,
-	},
-	{
-		id: 5,
-		name: "Creo - Carnivores",
-		creator: "Creo",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/qZSSJk6OHdA/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDZ4qB5K3fvzHf-GJWS1sIiPQHhQw",
-		description: "D",
-		videoCode: "qZSSJk6OHdA",
-		likes: 0,
-	},
-	{
-		id: 6,
-		name: "Python Decorator Functions",
-		creator: "mCoding",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/SXApHXsDe8I/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAl0_K9WohA2D0M3jLc49CUQ00-dw",
-		description: "D",
-		videoCode: "SXApHXsDe8I",
-		likes: 0,
-	},
-	{
-		id: 7,
-		name: "Fairy Tail: 100-Year Quest | Official Teaser",
-		creator: "AniTube",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/qiUZXKcCNpA/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAXCEp2vLmLnS_KSkikps80zMZj4Q",
-		description: "D",
-		videoCode: "qiUZXKcCNpA",
-		likes: 0,
-	},
-	{
-		id: 8,
-		name: "Web Scraping APIs",
-		creator: "John Watson",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/DqtlR0y0suo/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAUoRjjgJemvniu8uAsyHRJbH-Qkg",
-		description: "D",
-		videoCode: "DqtlR0y0suo",
-		likes: 0,
-	},
-	{
-		id: 9,
-		name: "Seemingly Impossible Riddle",
-		creator: "Veritasium",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/iSNsgj1OCLA/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDTCzTes5nhCdf5ZeFE15z1eydO4Q",
-		description: "D",
-		videoCode: "iSNsgj1OCLA",
-		likes: 0,
-	},
-	{
-		id: 10,
-		name: "First Ever Player In Minecraft",
-		creator: "TheMisterEpic",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/PsawtFK3WB4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBRl_FhY785JpgJ0PmnaWlOp0Qfng",
-		description: "D",
-		videoCode: "PsawtFK3WB4",
-		likes: 0,
-	},
-	{
-		id: 11,
-		name: "CSS3 Animation",
-		creator: "Traversy Media",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/zHUpx90NerM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD81lAQu1WnjIGwRe9HAel4djxgtw",
-		description: "D",
-		videoCode: "zHUpx90NerM",
-		likes: 0,
-	},
-	{
-		id: 12,
-		name: "Touring A Floating House",
-		creator: "Enes Plus",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/wHAZyUAnO-0/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA5CnOgEO7hFyRbeiZqsnHOdBQ3sA",
-		description: "D",
-		videoCode: "wHAZyUAnO-0",
-		likes: 0,
-	},
-	{
-		id: 13,
-		name: "Node JS Rest API",
-		creator: "Dev Ed",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/vjf774RKrLc/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD3MvsrkUcObxof4Vet6p2PIIIpKw",
-		description: "D",
-		videoCode: "vjf774RKrLc",
-		likes: 0,
-	},
-	{
-		id: 14,
-		name: "Creo - Red Horizon",
-		creator: "Creo",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/kmYgwc4QYhE/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB7U3kX6-NxOtNC6stoz5XgkwtUPQ",
-		description: "D",
-		videoCode: "kmYgwc4QYhE",
-		likes: 0,
-	},
-	{
-		id: 15,
-		name: "Aggresive Chess Openings",
-		creator: "GothamChess",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/Ib8XaRKCAfo/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDqKS3f7MNBD-K4BpIAIPjf1YA9JA",
-		description: "D",
-		videoCode: "Ib8XaRKCAfo",
-		likes: 0,
-	},
-	{
-		id: 16,
-		name: "Beginner Python Projects",
-		creator: "Tech With Tim",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/DLn3jOsNRVE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB5jRMJSxmHXd6NwJZAOaXTPtzhYA",
-		description: "D",
-		videoCode: "DLn3jOsNRVE",
-		likes: 0,
-	},
-	{
-		id: 17,
-		name: "NBA Epic Moments",
-		creator: "dime",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/CXLM08fZO5o/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBQ9BmR0pJUIsKeVJz_7SOt_-FBuQ",
-		description: "D",
-		videoCode: "CXLM08fZO5o",
-		likes: 0,
-	},
-	{
-		id: 18,
-		name: "Express JS Full Course",
-		creator: "freeCodeCamp.org",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/Oe421EPjeBE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDgCDSpAmDl1IAEM1sfyLP7oQ8g2g",
-		description: "D",
-		videoCode: "Oe421EPjeBE",
-		likes: 0,
-	},
-	{
-		id: 19,
-		name: "Optimistic Nihilism",
-		creator: "Kurzgesagt - In A Nutshell",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/MBRqu0YOH14/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDN7_ERbJzhOEhVlvGm9QVyuZRWYQ",
-		description: "D",
-		videoCode: "MBRqu0YOH14",
-		likes: 0,
-	},
-	{
-		id: 20,
-		name: "Wayde Van Niekerk Just Made A Statement",
-		creator: "Total Running Productions",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/9GWOamisyzg/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAtnLObTwWaRVvAs1cAMHukQvBzJg",
-		description: "D",
-		videoCode: "9GWOamisyzg",
-		likes: 0,
-	},
-	{
-		id: 21,
-		name: "Learn CSS Box Model",
-		creator: "Web Dev Simplified",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/rIO5326FgPE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDxhd3UWweh3VFzyLarDYGzwWcYhw",
-		description: "D",
-		videoCode: "rIO5326FgPE",
-		likes: 0,
-	},
-	{
-		id: 22,
-		name: "This Circle Is In Vanilla Minecraft",
-		creator: "Mysticat",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/3u65Dk1bqWg/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCqeZWWpD50FHenR7sP9uF80AY_CA",
-		description: "D",
-		videoCode: "3u65Dk1bqWg",
-		likes: 0,
-	},
-	{
-		id: 23,
-		name: "Async JS Crash Course",
-		creator: "Traversy Mdeia",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/PoRJizFvM7s/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBuI84djecG8XSDiJ9RT0MxT01-rQ",
-		description: "D",
-		videoCode: "PoRJizFvM7s",
-		likes: 0,
-	},
-	{
-		id: 24,
-		name: "How Norway Got Insanely Rich",
-		creator: "Casual Scholar",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/9Wq2S1b-HCs/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCG3qiTMzFwzRDgYRmdf4MyhlQJwg",
-		description: "D",
-		videoCode: "9Wq2S1b-HCs",
-		likes: 0,
-	},
-	{
-		id: 25,
-		name: "Punishing Beginner Mistakes",
-		creator: "Eric Rosen",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/D2Gs5upS1AA/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBiBQ7h7Ba7N07ArKqO88pos_TIkQ",
-		description: "D",
-		videoCode: "D2Gs5upS1AA",
-		likes: 0,
-	},
-	{
-		id: 26,
-		name: "The Tragedy Of Humanity's Greatest Achievement",
-		creator: "Pursuit of Wonder",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/hUfI7y3T8K4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCLqDOjdtf0dZ5hckOD-4uGh_f0Cw",
-		description: "D",
-		videoCode: "hUfI7y3T8K4",
-		likes: 0,
-	},
-	{
-		id: 27,
-		name: "Learn Dynamic Module Imports",
-		creator: "Web Dev Simplified",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/ddVm53j80vc/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBBPRLc1xS4nqa0epbckT4gELyMyQ",
-		description: "D",
-		videoCode: "ddVm53j80vc",
-		likes: 0,
-	},
-	{
-		id: 28,
-		name: "Greedy Algorithms Tutorial",
-		creator: "freeCodeCamp.org",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/bC7o8P_Ste4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD7dxwIkhn3CLMUZWFdAHeI0l1S_A",
-		description: "D",
-		videoCode: "bC7o8P_Ste4",
-		likes: 0,
-	},
-	{
-		id: 29,
-		name: "Turbulent Flow vs. Laminar Flow",
-		creator: "Veritasium",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/5zI9sG3pjVU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCDe-5M0lXNZacYgTxmh1-ZtfUGBQ",
-		description: "D",
-		videoCode: "5zI9sG3pjVU",
-		likes: 0,
-	},
-	{
-		id: 30,
-		name: "Web Development In 2022",
-		creator: "Traversy Media",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/EqzUcMzfV1w/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAup3YgMytqO1Vii4Myhwp4_wFZhQ",
-		description: "D",
-		videoCode: "EqzUcMzfV1w",
-		likes: 0,
-	},
-	{
-		id: 31,
-		name: "JavaScript ES6 Modules",
-		creator: "The Codeholic",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/ananPWEdfDA/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBiPl9OAocoXYXCdlMQVA51irI9bg",
-		description: "D",
-		videoCode: "ananPWEdfDA",
-		likes: 0,
-	},
-	{
-		id: 32,
-		name: "The Misfit of Demon King Academy | Official Trailer",
-		creator: "AnimeHype",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/sn9Rufl_RIc/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBQxSb98GNhVBenXlMM9CDqEKJQEQ",
-		description: "D",
-		videoCode: "sn9Rufl_RIc",
-		likes: 0,
-	},
-	{
-		id: 33,
-		name: "Python Full Course",
-		creator: "Bro Code",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/XKHEtdqhLK8/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAwiaYg15KmdfuYUhMbmDWXAoam8Q",
-		description: "D",
-		videoCode: "XKHEtdqhLK8",
-		likes: 0,
-	},
-	{
-		id: 34,
-		name: "Would You Take This Bet",
-		creator: "Veritasium",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/vBX-KulgJ1o/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDyJXNRHS0bOVmkKQETq2D4ojeONA",
-		description: "D",
-		videoCode: "vBX-KulgJ1o",
-		likes: 0,
-	},
-	{
-		id: 35,
-		name: "Javascript Neural Networks",
-		creator: "freeCodeCamp.org",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/Rs_rAxEsAvI/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDotaQQ-V-DzldSz8ZT1NKk5t3TGg",
-		description: "D",
-		videoCode: "Rs_rAxEsAvI",
-		likes: 0,
-	},
-	{
-		id: 36,
-		name: "Calculate Square Roots In You Head",
-		creator: "MindYourDecisions",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/I7TFYa1v9xI/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAYjxKY8HB7bHa3HGFG_XUkjJBtCQ",
-		description: "D",
-		videoCode: "I7TFYa1v9xI",
-		likes: 0,
-	},
-	{
-		id: 36,
-		name: "Solo Leveling | Official Trailer",
-		creator: "AniTV",
-		views: 0,
-		thumbnail: "https://i.ytimg.com/vi/_0G4fAvucIs/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCDXBkvH8StfJ1Yf5vbtQwnc-KClg",
-		description: "D",
-		videoCode: "_0G4fAvucIs",
-		likes: 0,
-	},
-];
-
+let user = {name: "Justin E."};
 
 
 // Home Page Load
@@ -424,8 +55,8 @@ function videoGridLoad(page, videoList) {
 		divider.appendChild(newImage);
 
 		newImage.addEventListener("click", () => {
-			video.views++;
-			historyPageVideos.unshift(video);
+			video.views++; // Update: video.views (Adds Views To Video)
+			historyPageVideos.unshift(video); // Update: historyPageVideos (Add Video To History)
 			showPlayer();
 			playerPageLoad(video);
 		});
@@ -485,8 +116,8 @@ function videoTableLoad(page, videoList) {
 		videoCell.appendChild(videoImage);
 
 		videoImage.addEventListener("click", (e) => {
-			historyPageVideos.unshift(video);
-			video.views++
+			historyPageVideos.unshift(video); // Update: historyPageVideos (Add Video To History)
+			video.views++ // Update: video.views (Adds View To Video)
 			showPlayer();
 			playerPageLoad(video);
 		});
@@ -577,7 +208,7 @@ function playerPageLoad(video) {
 	// videoLikes.style.marginTop = "-10px"
 	btnDiv.appendChild(videoLikes);
 
-	likeButton = document.createElement("button");
+	let likeButton = document.createElement("button");
 	likeButton.style.marginLeft = "40px";
 	likeButton.innerText = "Like"
 	likeButton.style.backgroundColor = "var(--yt-red)";
@@ -587,9 +218,9 @@ function playerPageLoad(video) {
 	btnDiv.appendChild(likeButton);
 
 	likeButton.addEventListener("click", () => {
-		video.likes++;
+		video.likes++; // Update: video.likes (Likes A Video)
 		videoLikes.innerText = `${video.likes || 0} likes`;
-		likedVideos.unshift(video);
+		likedVideos.unshift(video); // Update: likedVideos (Adds Video To Liked Playlist)
 	})
 
 	let unlikeButton = document.createElement("button");
@@ -602,9 +233,9 @@ function playerPageLoad(video) {
 	btnDiv.appendChild(unlikeButton);
 
 	unlikeButton.addEventListener("click", () => {
-		video.likes--;
+		video.likes--; // Update: video.likes (Unlikes A Video)
 		videoLikes.innerText = `${video.likes || 0} likes`;
-		likedVideos.splice(likedVideos.indexOf(video));
+		likedVideos.splice(likedVideos.indexOf(video)); // Update: likedVideos (Removes Video From Liked Playlist)
 	})
 
 	let addToPlaylistButton = document.createElement("button");
@@ -627,6 +258,79 @@ function playerPageLoad(video) {
 	videoDesc.style.color = "var(--yt-light)";
 	videoDesc.style.fontSize = "15px";
 	videoSection.appendChild(videoDesc);
+
+	if (video.comments) {
+
+		let commentLabel = document.createElement("p");
+		commentLabel.innerText = "Comments";
+		commentLabel.style.color = "white";
+		commentLabel.style.borderTop = "1px solid var(--yt-light)"
+		commentLabel.style.paddingTop = "10px";
+		videoSection.appendChild(commentLabel);
+
+		let inputSection = document.createElement("div");
+		inputSection.style.display = "flex";
+		inputSection.style.alignItems = "center";
+		inputSection.style.marginBottom = "20px";
+		videoSection.appendChild(inputSection);
+
+
+		let commentInput = document.createElement("textarea");
+		commentInput.style.backgroundColor = "var(--yt-input)";
+		commentInput.setAttribute("rows", "4");
+		commentInput.setAttribute("placeholder", "Positive Comments Only");
+		commentInput.style.color = "white";
+		commentInput.style.width = "450px";
+		commentInput.style.height = "50px";
+		inputSection.appendChild(commentInput);
+
+		let sendButton = document.createElement("button");
+		sendButton.innerText = "Send";
+		sendButton.style.width = "75px";
+		sendButton.style.height = "40px";
+		sendButton.style.borderRadius = "5px";
+		sendButton.style.backgroundColor = "var(--yt-red)";
+		sendButton.style.color = "white";
+		sendButton.style.fontWeight = "bold";
+		sendButton.style.marginLeft = "20px";
+		sendButton.style.border = "1px solid white";
+		inputSection.appendChild(sendButton);
+
+		let commentsSection = document.createElement("div");
+		videoSection.appendChild(commentsSection);
+	
+
+		function loadComments() {
+			removeAllChildren(commentsSection);
+			
+			for (let comment of video.comments) {
+				let commentDiv = document.createElement("div");
+				//commentDiv.style.border = "4px solid white";
+				commentDiv.style.borderTop = "1px solid var(--yt-light)";
+				commentDiv.style.width = "600px";
+				//commentDiv.style.height = "70px";
+				commentsSection.appendChild(commentDiv);
+
+				let senderLabel = document.createElement("p");
+				senderLabel.innerText = comment.sender;
+				senderLabel.style.color = "white";
+				senderLabel.style.fontWeight = "bold";
+				senderLabel.style.marginBottom = "-10px"
+				commentDiv.appendChild(senderLabel);
+
+				let msgLabel = document.createElement("p");
+				msgLabel.innerText = comment.message;
+				msgLabel.style.color = "var(--yt-light)";
+				commentDiv.appendChild(msgLabel);
+			}
+		}
+
+		sendButton.addEventListener("click", () => {
+			video.comments.unshift({sender: user.name, message: commentInput.value}); // Update: video.comments (Adds New Comment To Video)
+			loadComments();
+		})
+
+	}
 
 
 	let othersSection = document.createElement("div");
@@ -658,7 +362,7 @@ function playerPageLoad(video) {
 
 		videoImage.addEventListener("click", () => {
 			sideVideo.views++
-			historyPageVideos.unshift(sideVideo);
+			historyPageVideos.unshift(sideVideo); // Update: historyPageVideos (Adds Video To History)
 			showPlayer();
 			playerPageLoad(sideVideo);
 		})
@@ -697,7 +401,6 @@ function playerPageLoad(video) {
 
 
 function showPlaylistList(title, video) {
-
 	let dialog = document.createElement("div");
 	dialog.style.display = "flex";
 	dialog.style.flexDirection = "column";
@@ -750,7 +453,7 @@ function showPlaylistList(title, video) {
 
 		else {
 			playlistName.addEventListener("click", () => {
-				playlist.videos.unshift(video);
+				playlist.videos.unshift(video); // Update: playlist.videos (Adds Video To Playlist)
 				dialog.style.display = "none";
 			})
 		}
@@ -804,7 +507,7 @@ function showPlaylistList(title, video) {
 
 		submitButton.addEventListener("click", () => {
 			let newPlaylist = {name: newName.value, videos: []};
-			playlists.push(newPlaylist);
+			playlists.push(newPlaylist); // Update: playlists (Creates New Playlist)
 			dialog.style.display = "none";
 			showPlaylistList("Open Playlist", null);
 		})
@@ -859,7 +562,7 @@ function showPlaylistList(title, video) {
 		submitButton.addEventListener("click", () => {
 			for (let playlist of playlists) {
 				if (playlist.name == name.value) {
-					playlists.splice(playlists.indexOf(playlist));
+					playlists.splice(playlists.indexOf(playlist)); // Update: playlists (Deletes A Playlist)
 				}
 			}
 
@@ -1035,7 +738,7 @@ searchInput.addEventListener("change", (event) => {
 searchInput.addEventListener("input", (event) => {
 	let newVideoList = [];
 
-	for (video of homePageVideos) {
+	for (let video of homePageVideos) {
 		if ((stringContains(searchInput.value, video.name) == true) || (stringContains(searchInput.value, video.creator) == true)) {
 			newVideoList.push(video);
 		};
@@ -1066,5 +769,11 @@ homeButton.addEventListener("click", () => {
 
 shuffle(homePageVideos);
 videoGridLoad(homePage, homePageVideos);
+
+
+homeButton.addEventListener("click", () => showHome())
+historyButton.addEventListener("click", () => showHistory())
+likePageButton.addEventListener("click", () => showLiked())
+playlistsButton.addEventListener("click", () => showPlaylistList("Open Playlist", null))
 
 
