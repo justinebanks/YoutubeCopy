@@ -1,7 +1,4 @@
-import { videoList as homePageVideos } from "./jsonVideoLists/videos.js";
-// import { likedVideos } from "./jsonVideoLists/likeVideos.js";
-// import { historyPageVideos } from "./jsonVideoLists/historyPageVideos.js";
-// import { playlists } from "./jsonVideoLists/playlists.js";
+// import { videoList as fullVideoList } from "./videos.js";
 
 let searchInput = document.querySelector(".search-input");
 let ytLink;
@@ -17,6 +14,15 @@ let historyButton = document.querySelector(".history-btn");
 let likePageButton = document.querySelector(".liked-btn")
 let playlistsButton = document.querySelector(".playlists-btn")
 
+let fullVideoList;
+let homePageVideos = [];
+
+/*
+homePageVideos = fullVideoList;
+shuffle(homePageVideos);
+videoGridLoad(homePage, homePageVideos);
+*/
+
 let historyPageVideos = [];
 let likedVideos = [];
 
@@ -30,9 +36,12 @@ let playlists = [
 let user = {name: "Justin E."};
 
 
+
+
 // Home Page Load
 function videoGridLoad(page, videoList) {
 	removeAllChildren(page);
+
 
 	for (let video of videoList) {
 
@@ -298,36 +307,32 @@ function playerPageLoad(video) {
 
 		let commentsSection = document.createElement("div");
 		videoSection.appendChild(commentsSection);
-	
 
-		function loadComments() {
-			removeAllChildren(commentsSection);
-			
-			for (let comment of video.comments) {
-				let commentDiv = document.createElement("div");
-				//commentDiv.style.border = "4px solid white";
-				commentDiv.style.borderTop = "1px solid var(--yt-light)";
-				commentDiv.style.width = "600px";
-				//commentDiv.style.height = "70px";
-				commentsSection.appendChild(commentDiv);
+		for (let comment of video.comments) {
+			let commentDiv = document.createElement("div");
+			//commentDiv.style.border = "4px solid white";
+			commentDiv.style.borderTop = "1px solid var(--yt-light)";
+			commentDiv.style.width = "600px";
+			//commentDiv.style.height = "70px";
+			commentsSection.appendChild(commentDiv);
 
-				let senderLabel = document.createElement("p");
-				senderLabel.innerText = comment.sender;
-				senderLabel.style.color = "white";
-				senderLabel.style.fontWeight = "bold";
-				senderLabel.style.marginBottom = "-10px"
-				commentDiv.appendChild(senderLabel);
+			let senderLabel = document.createElement("p");
+			senderLabel.innerText = comment.sender;
+			senderLabel.style.color = "white";
+			senderLabel.style.fontWeight = "bold";
+			senderLabel.style.marginBottom = "-10px"
+			commentDiv.appendChild(senderLabel);
 
-				let msgLabel = document.createElement("p");
-				msgLabel.innerText = comment.message;
-				msgLabel.style.color = "var(--yt-light)";
-				commentDiv.appendChild(msgLabel);
-			}
+			let msgLabel = document.createElement("p");
+			msgLabel.innerText = comment.message;
+			msgLabel.style.color = "var(--yt-light)";
+			commentDiv.appendChild(msgLabel);
 		}
+
 
 		sendButton.addEventListener("click", () => {
 			video.comments.unshift({sender: user.name, message: commentInput.value}); // Update: video.comments (Adds New Comment To Video)
-			loadComments();
+			playerPageLoad(video);
 		})
 
 	}
@@ -340,7 +345,7 @@ function playerPageLoad(video) {
 	columns.appendChild(othersSection);
 
 	for (let index of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
-		let sideVideo = homePageVideos[getRandomInt(0, homePageVideos.length-1)]; // homePageVideos[homePageVideos.indexOf(video)+index]
+		let sideVideo = fullVideoList[getRandomInt(0, fullVideoList.length-1)]; // fullVideoList[fullVideoList.indexOf(video)+index]
 		
 		let container = document.createElement("div");
 		container.style.display = "flex";
@@ -738,7 +743,7 @@ searchInput.addEventListener("change", (event) => {
 searchInput.addEventListener("input", (event) => {
 	let newVideoList = [];
 
-	for (let video of homePageVideos) {
+	for (let video of fullVideoList) {
 		if ((stringContains(searchInput.value, video.name) == true) || (stringContains(searchInput.value, video.creator) == true)) {
 			newVideoList.push(video);
 		};
@@ -756,24 +761,89 @@ searchInput.addEventListener("input", (event) => {
 
 historyButton.addEventListener("click", () => {
 	videoTableLoad(historyPage, historyPageVideos);
+	showHistory();
 });
 
 likePageButton.addEventListener("click", () => {
 	videoTableLoad(likedPage, likedVideos);
+	showLiked();
 });
 
 homeButton.addEventListener("click", () => {
 	videoGridLoad(homePage, homePageVideos);
+	showHome();
+})
+
+playlistsButton.addEventListener("click", () => {
+	showPlaylistList("Open Playlist", null)
 })
 
 
-shuffle(homePageVideos);
-videoGridLoad(homePage, homePageVideos);
+
+let input = document.createElement("input");
+input.setAttribute("type", "file");
+input.style.color = "white";
+navRight.appendChild(input);
+
+input.addEventListener("change", () => {
+	let fr = new FileReader();
+	fr.readAsText(input.files[0]);
+
+	fr.onload = function() {
+		fullVideoList = JSON.parse(fr.result).videos;
+		console.log(input.files)
+		console.log(fullVideoList);
 
 
-homeButton.addEventListener("click", () => showHome())
-historyButton.addEventListener("click", () => showHistory())
-likePageButton.addEventListener("click", () => showLiked())
-playlistsButton.addEventListener("click", () => showPlaylistList("Open Playlist", null))
+		homePageVideos = fullVideoList;
+		shuffle(homePageVideos);
+		videoGridLoad(homePage, homePageVideos);
+
+	}
+})
+
+/*
+
+let fileHandle;
+
+async function chooseFile() {
+	[fileHandle] = await window.showOpenFilePicker();
+	let fileData = await fileHandle.getFile(); // File Information
+	let text = await fileData.text(); // File Text
+
+	try {
+		fullVideoList = JSON.parse(text);
+	} 
+	catch (Error) {
+		console.log(`${text}`);
+	}
+
+	homePageVideos = fullVideoList;
+	shuffle(homePageVideos);
+	videoGridLoad(homePage, homePageVideos);
+	console.log(fileData);
+	//console.log(JSON.parse(text));
+}
+
+
+async function writeToFile(videoList) {
+	let stream = await fileHandle.createWritable(); // Creates Writer Objec
+	await stream.write(JSON.stringify(videoList)); // Writes To File
+	await stream.close() // Closes File (Required)
+}
+
+let openFileButton = document.createElement("button");
+openFileButton.addEventListener("click", () => chooseFile());
+nav.appendChild(openFileButton);
+openFileButton.innerText = "Choose File";
+
+
+let writeFileButton = document.createElement("button");
+writeFileButton.addEventListener("click", () => writeToFile(fullVideoList));
+nav.appendChild(writeFileButton);
+writeFileButton.innerText = "Write File";
+*/
+
+
 
 
