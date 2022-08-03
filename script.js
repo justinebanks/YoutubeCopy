@@ -490,7 +490,6 @@ function videoGridLoad(page, videoList) {
 		videoViews.appendChild(viewText);
 		videoViews.style.color = "white";
 		videoViews.style.fontSize = "13px";
-		videoViews.style.fontSize = "13px";
 		videoViews.style.position = "relative";
 		videoViews.style.bottom = "20px";
 		divider.appendChild(videoViews);
@@ -503,8 +502,6 @@ function videoTableLoad(page, videoList) {
 	removeAllChildren(page);
 
 	for (let video of videoList) {
-
-		let localPlayer = false;
 
 		// page.style.border = "3px solid white";
 		page.style.display = "flex";
@@ -579,7 +576,7 @@ function playerPageLoad(video) {
 	columns.appendChild(videoSection);
 
 	let videoFrame = document.createElement("iframe");
-	videoFrame.setAttribute("src", `https:/www.youtube.com/embed/${video.videoCode}`)
+	videoFrame.setAttribute("src", `https://www.youtube.com/embed/${video.videoCode}`)
 	videoFrame.style.width = "800px";
 	videoFrame.style.height = "450px";
 	videoSection.appendChild(videoFrame);
