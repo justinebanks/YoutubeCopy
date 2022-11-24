@@ -1,4 +1,4 @@
-import fullVideoList from "videos";
+import fullVideoList from "./videos.js";
 
 let searchInput = document.querySelector(".search-input");
 let ytLink;
@@ -773,6 +773,5 @@ playlistsButton.addEventListener("click", () => {
 homePageVideos = fullVideoList;
 shuffle(homePageVideos);
 videoGridLoad(homePage, homePageVideos);
-
 
 

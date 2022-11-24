@@ -1,4 +1,4 @@
-export let videos = [
+export default [
 	{
 		id: 1,
 		name: "Fullstack Web Development",
