@@ -321,7 +321,7 @@ function playerPageLoad(video) {
 
 
 		sendButton.addEventListener("click", () => {
-			if ((commentInput.value == "") || (commentInput.value == " ")) {
+			if ((commentInput.value != "") && (commentInput.value != " ")) {
 				video.comments.unshift({sender: user.name, message: commentInput.value}); // Update: video.comments (Adds New Comment To Video)
 				playerPageLoad(video);
 			}
